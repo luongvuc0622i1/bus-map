@@ -30,5 +30,13 @@
 {
 "route_long_name": "Bắc Ninh - Đại Lai",
 "route_short_name": "BN86B"
+},
+{
+"route_long_name": "Long Biên - Thành phố Bắc Ninh",
+"route_short_name": "54"
+},
+{
+"route_long_name": "Hải Dương - Bắc Ninh",
+"route_short_name": "217"
 }
 ]
