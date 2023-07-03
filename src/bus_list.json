@@ -1,0 +1,34 @@
+[
+{
+"route_long_name": "Bắc Ninh - Lương Tài",
+"route_short_name": "BN01"
+},
+{
+"route_long_name": "Bắc Ninh - Phả Lại",
+"route_short_name": "BN02"
+},
+{
+"route_long_name": "Bắc Ninh - Yên Phong",
+"route_short_name": "BN03"
+},
+{
+"route_long_name": "Bắc Ninh - Kênh Vàng",
+"route_short_name": "BN08"
+},
+{
+"route_long_name": "Kênh Vàng - Xuân Lâm",
+"route_short_name": "BN27"
+},
+{
+"route_long_name": "KCN VSIP - Chi Lăng",
+"route_short_name": "BN68"
+},
+{
+"route_long_name": "Bắc Ninh - Minh Tân",
+"route_short_name": "BN86A"
+},
+{
+"route_long_name": "Bắc Ninh - Đại Lai",
+"route_short_name": "BN86B"
+}
+]
