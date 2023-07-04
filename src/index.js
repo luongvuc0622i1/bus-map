@@ -95,13 +95,10 @@ class Application extends React.Component {
       // create a HTML element for each feature
       const el = document.createElement('div');
       el.className = 'marker';
-      el.id = 'marker';
       const elGo = document.createElement('div');
       elGo.className = 'marker-blue';
-      elGo.id = 'marker';
       const elBack = document.createElement('div');
       elBack.className = 'marker-red';
-      elBack.id = 'marker';
       
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
