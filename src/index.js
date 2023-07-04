@@ -30,9 +30,9 @@ class Application extends React.Component {
     super(props);
     this.handleSelect = this.handleSelect.bind(this)
     this.state = {
-      lng: 106.1306849,
+      lng: 106.0806849,
       lat: 21.1169071,
-      zoom: 10,
+      zoom: 11,
       selected_bus: 1,
       bus_stop_list: bus_stop_list_bn01
     };
@@ -202,6 +202,7 @@ class Application extends React.Component {
 
     const elements = document.getElementsByClassName('mapboxgl-marker'); //clear all old markers
     while (elements.length > 0) elements[0].remove();
+
   }
 
   render() {
@@ -215,8 +216,6 @@ class Application extends React.Component {
         background: "#6d6d6d", fontStyle:"bold",outline:"none"}}>
           {optionItems}
         </select>
-        <div style={{display: "inline-block",position: "absolute", height: "100%",width:"300px",padding: "10px", right:"0px", fontSize:"17px",border: "none",
-        background: "#fff", fontStyle:"bold",outline:"none"}}/>
       </div>
     );
   }
