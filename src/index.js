@@ -127,9 +127,57 @@ class Application extends React.Component {
       if (this.state.selected_bus === "BN01") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn01Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn01Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+        this.setState({bus_stop_list: bus_stop_list_bn01}, () => { //update selected bus stop
+          // add markers to map
+          for (const feature of this.state.bus_stop_list.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+            const elGo = document.createElement('div');
+            elGo.className = 'marker-blue';
+            const elBack = document.createElement('div');
+            elBack.className = 'marker-red';
+            
+            // make a marker for each feature and add it to the map
+            new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
+              new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<div>
+                  <h1>`+feature.properties.title+`</h1>
+                  <p>`+feature.properties.description+`</p>
+                  <small>`+feature.properties.router+`</small>
+                </div>`
+                )
+              ).addTo(this.map)
+          };
+        });
       } else if (this.state.selected_bus === "BN02") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn02Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn02Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+        this.setState({bus_stop_list: bus_stop_list_bn02}, () => { //update selected bus stop
+          // add markers to map
+          for (const feature of this.state.bus_stop_list.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+            const elGo = document.createElement('div');
+            elGo.className = 'marker-blue';
+            const elBack = document.createElement('div');
+            elBack.className = 'marker-red';
+            
+            // make a marker for each feature and add it to the map
+            new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
+              new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<div>
+                  <h1>`+feature.properties.title+`</h1>
+                  <p>`+feature.properties.description+`</p>
+                  <small>`+feature.properties.router+`</small>
+                </div>`
+                )
+              ).addTo(this.map)
+          };
+        });
       } else if (this.state.selected_bus === "BN03") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn03Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn03Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
@@ -157,38 +205,6 @@ class Application extends React.Component {
 
     const elements = document.getElementsByClassName('mapboxgl-marker'); //clear all old markers
     while (elements.length > 0) elements[0].remove();
-
-    let bus_stop_list_selection = [];
-    if (this.state.selected_bus === 'BN01') {
-      bus_stop_list_selection = bus_stop_list_bn01;
-    } else if (this.state.selected_bus === 'BN02') {
-      bus_stop_list_selection = bus_stop_list_bn02;
-    }
-    this.setState({bus_stop_list: bus_stop_list_selection}, () => { //update selected bus stop
-
-    // add markers to map
-    for (const feature of this.state.bus_stop_list.features) {
-      // create a HTML element for each feature
-      const el = document.createElement('div');
-      el.className = 'marker';
-      const elGo = document.createElement('div');
-      elGo.className = 'marker-blue';
-      const elBack = document.createElement('div');
-      elBack.className = 'marker-red';
-      
-      // make a marker for each feature and add it to the map
-      new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
-        new mapboxgl.Popup({ offset: 25 }) // add popups
-        .setHTML(
-          `<div>
-            <h1>`+feature.properties.title+`</h1>
-            <p>`+feature.properties.description+`</p>
-            <small>`+feature.properties.router+`</small>
-          </div>`
-          )
-        ).addTo(this.map)
-    };
-    });
   }
 
   render() {
