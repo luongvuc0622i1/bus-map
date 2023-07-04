@@ -3,20 +3,24 @@ import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import bus_list from './bus_list.json' //list of all bus routes
-import bn01Go from './bn01-go.json';
-import bn01Back from './bn01-back.json';
-import bn02Go from './bn02-go.json';
-import bn02Back from './bn02-back.json';
-import bn03Go from './bn03-go.json';
-import bn03Back from './bn03-back.json';
-import bn08Go from './bn08-go.json';
-import bn08Back from './bn08-back.json';
-import bn68Go from './bn68-go.json';
-import bn68Back from './bn68-back.json';
-import bn54Go from './54-go.json';
-import bn54Back from './54-back.json';
-import bn217Go from './217-go.json';
-import bn217Back from './217-back.json';
+import bn01Go from './json/bus-router/bn01-go.json';
+import bn01Back from './json/bus-router/bn01-back.json';
+import bn02Go from './json/bus-router/bn02-go.json';
+import bn02Back from './json/bus-router/bn02-back.json';
+import bn03Go from './json/bus-router/bn03-go.json';
+import bn03Back from './json/bus-router/bn03-back.json';
+import bn08Go from './json/bus-router/bn08-go.json';
+import bn08Back from './json/bus-router/bn08-back.json';
+import bn27Go from './json/bus-router/bn27-go.json';
+import bn27Back from './json/bus-router/bn27-back.json';
+import bn68Go from './json/bus-router/bn68-go.json';
+import bn68Back from './json/bus-router/bn68-back.json';
+import bn54Go from './json/bus-router/54-go.json';
+import bn54Back from './json/bus-router/54-back.json';
+import bn217Go from './json/bus-router/217-go.json';
+import bn217Back from './json/bus-router/217-back.json';
+import { bus_stop_list_bn01 } from './json/bus-stop/bn01';
+import { bus_stop_list_bn02 } from './json/bus-stop/bn02';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FhZGlxbSIsImEiOiJjamJpMXcxa3AyMG9zMzNyNmdxNDlneGRvIn0.wjlI8r1S_-xxtq2d-W5qPA';
 
@@ -26,15 +30,15 @@ class Application extends React.Component {
     super(props);
     this.handleSelect = this.handleSelect.bind(this)
     this.state = {
-      lng: 106.0346849,
+      lng: 106.1306849,
       lat: 21.1169071,
       zoom: 10,
       selected_bus: 1,
+      bus_stop_list: bus_stop_list_bn01
     };
   }
 
   componentDidMount() {
-
     const {lng, lat, zoom } = this.state;
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -85,7 +89,34 @@ class Application extends React.Component {
           },
       });
     });
+    
+    // add markers to map
+    for (const feature of this.state.bus_stop_list.features) {
+      // create a HTML element for each feature
+      const el = document.createElement('div');
+      el.className = 'marker';
+      el.id = 'marker';
+      const elGo = document.createElement('div');
+      elGo.className = 'marker-blue';
+      elGo.id = 'marker';
+      const elBack = document.createElement('div');
+      elBack.className = 'marker-red';
+      elBack.id = 'marker';
+      
+      // make a marker for each feature and add it to the map
+      new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(
+          `<div>
+            <h1>`+feature.properties.title+`</h1>
+            <p>`+feature.properties.description+`</p>
+            <small>`+feature.properties.router+`</small>
+          </div>`
+          )
+        ).addTo(this.map)
+    };
   }
+
   handleSelect(e){
     e.preventDefault();
     let selection = e.target.value;
@@ -105,6 +136,9 @@ class Application extends React.Component {
       } else if (this.state.selected_bus === "BN08") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn08Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn08Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+      } else if (this.state.selected_bus === "BN27") {
+        geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn27Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+        geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn27Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
       } else if (this.state.selected_bus === "BN68") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn68Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn68Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
@@ -120,6 +154,41 @@ class Application extends React.Component {
       this.map.getSource('Bus Route Back').setData(geojsonBack); //update data source through Mapbox setData()
 
     });
+
+    const elements = document.getElementsByClassName('mapboxgl-marker'); //clear all old markers
+    while (elements.length > 0) elements[0].remove();
+
+    let bus_stop_list_selection = [];
+    if (this.state.selected_bus === 'BN01') {
+      bus_stop_list_selection = bus_stop_list_bn01;
+    } else if (this.state.selected_bus === 'BN02') {
+      bus_stop_list_selection = bus_stop_list_bn02;
+    }
+    this.setState({bus_stop_list: bus_stop_list_selection}, () => { //update selected bus stop
+
+    // add markers to map
+    for (const feature of this.state.bus_stop_list.features) {
+      // create a HTML element for each feature
+      const el = document.createElement('div');
+      el.className = 'marker';
+      const elGo = document.createElement('div');
+      elGo.className = 'marker-blue';
+      const elBack = document.createElement('div');
+      elBack.className = 'marker-red';
+      
+      // make a marker for each feature and add it to the map
+      new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(
+          `<div>
+            <h1>`+feature.properties.title+`</h1>
+            <p>`+feature.properties.description+`</p>
+            <small>`+feature.properties.router+`</small>
+          </div>`
+          )
+        ).addTo(this.map)
+    };
+    });
   }
 
   render() {
@@ -133,6 +202,8 @@ class Application extends React.Component {
         background: "#6d6d6d", fontStyle:"bold",outline:"none"}}>
           {optionItems}
         </select>
+        <div style={{display: "inline-block",position: "absolute", height: "100%",width:"300px",padding: "10px", right:"0px", fontSize:"17px",border: "none",
+        background: "#fff", fontStyle:"bold",outline:"none"}}/>
       </div>
     );
   }
