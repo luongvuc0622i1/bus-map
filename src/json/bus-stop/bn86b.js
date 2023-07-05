@@ -1,4 +1,4 @@
-export let bus_stop_list_bn86a = {
+export let bus_stop_list_bn86b = {
     'type': 'FeatureCollection',
     'features': [
     {
@@ -470,48 +470,12 @@ export let bus_stop_list_bn86a = {
       'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': [106.229274,21.063179]
+          'coordinates': [106.201397,21.086935]
       },
       'properties': {
-        'title': 'Chùa Ngụ',
-        'description': '',
-        'router': 'BN08, BN68A'
-      }
-    },
-    {
-      'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [106.228167,21.060662]
-      },
-      'properties': {
-        'title': 'Cống Ngụ',
-        'description': '',
-        'router': 'BN68A'
-      }
-    },
-    {
-      'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [106.228362,21.054020]
-      },
-      'properties': {
-        'title': 'Cống Duối',
-        'description': '',
-        'router': 'BN68A'
-      }
-    },
-    {
-      'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [106.265589,20.989173]
-      },
-      'properties': {
-        'title': '(B) Minh Tân',
-        'description': 'Gần chợ Văn Thai',
-        'router': 'BN68A'
+        'title': '(B) Đại Lai',
+        'description': 'Khu di tích Lệ Chi Viên',
+        'router': 'BN68B'
       }
     }
     ]

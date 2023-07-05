@@ -17,13 +17,17 @@ import bn68Go from './json/bus-router/bn68-go.json';
 import bn68Back from './json/bus-router/bn68-back.json';
 import bn86aGo from './json/bus-router/bn86a-go.json';
 import bn86aBack from './json/bus-router/bn86a-back.json';
+import bn86bGo from './json/bus-router/bn86b-go.json';
+import bn86bBack from './json/bus-router/bn86b-back.json';
 import bn54Go from './json/bus-router/54-go.json';
 import bn54Back from './json/bus-router/54-back.json';
 import bn217Go from './json/bus-router/217-go.json';
 import bn217Back from './json/bus-router/217-back.json';
 import { bus_stop_list_bn01 } from './json/bus-stop/bn01';
 import { bus_stop_list_bn02 } from './json/bus-stop/bn02';
+import { bus_stop_list_bn08 } from './json/bus-stop/bn08';
 import { bus_stop_list_bn86a } from './json/bus-stop/bn86a';
+import { bus_stop_list_bn86b } from './json/bus-stop/bn86b';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FhZGlxbSIsImEiOiJjamJpMXcxa3AyMG9zMzNyNmdxNDlneGRvIn0.wjlI8r1S_-xxtq2d-W5qPA';
 
@@ -184,6 +188,30 @@ class Application extends React.Component {
       } else if (this.state.selected_bus === "BN08") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn08Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn08Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+        this.setState({bus_stop_list: bus_stop_list_bn08}, () => { //update selected bus stop
+          // add markers to map
+          for (const feature of this.state.bus_stop_list.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+            const elGo = document.createElement('div');
+            elGo.className = 'marker-blue';
+            const elBack = document.createElement('div');
+            elBack.className = 'marker-red';
+            
+            // make a marker for each feature and add it to the map
+            new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
+              new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<div>`
+                  +(feature.properties.title?(`<h1>`+feature.properties.title+`</h1>`):'')
+                  +(feature.properties.description?(`<p>Đ/c: `+feature.properties.description+`</p>`):'')
+                  +(feature.properties.router?(`<small>Tuyến: `+feature.properties.router+`</small>`):'')+
+                `</div>`
+                )
+              ).addTo(this.map)
+          };
+        });
       } else if (this.state.selected_bus === "BN27") {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn27Go]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn27Back]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
@@ -194,6 +222,33 @@ class Application extends React.Component {
         geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn86aGo]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn86aBack]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
         this.setState({bus_stop_list: bus_stop_list_bn86a}, () => { //update selected bus stop
+          // add markers to map
+          for (const feature of this.state.bus_stop_list.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+            const elGo = document.createElement('div');
+            elGo.className = 'marker-blue';
+            const elBack = document.createElement('div');
+            elBack.className = 'marker-red';
+            
+            // make a marker for each feature and add it to the map
+            new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
+              new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<div>`
+                  +(feature.properties.title?(`<h1>`+feature.properties.title+`</h1>`):'')
+                  +(feature.properties.description?(`<p>Đ/c: `+feature.properties.description+`</p>`):'')
+                  +(feature.properties.router?(`<small>Tuyến: `+feature.properties.router+`</small>`):'')+
+                `</div>`
+                )
+              ).addTo(this.map)
+          };
+        });
+      } else if (this.state.selected_bus === "BN86B") {
+        geojsonGo = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn86bGo]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+        geojsonBack = { "type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[bn86bBack]}}], "crs" : { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } } };
+        this.setState({bus_stop_list: bus_stop_list_bn86b}, () => { //update selected bus stop
           // add markers to map
           for (const feature of this.state.bus_stop_list.features) {
             // create a HTML element for each feature
