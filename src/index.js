@@ -104,11 +104,11 @@ class Application extends React.Component {
       new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
         new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML(
-          `<div>
-            <h1>`+feature.properties.title+`</h1>
-            <p>`+feature.properties.description+`</p>
-            <small>`+feature.properties.router+`</small>
-          </div>`
+          `<div>`
+            +(feature.properties.title?(`<h1>`+feature.properties.title+`</h1>`):'')
+            +(feature.properties.description?(`<p>Đ/c: `+feature.properties.description+`</p>`):'')
+            +(feature.properties.router?(`<small>Tuyến: `+feature.properties.router+`</small>`):'')+
+          `</div>`
           )
         ).addTo(this.map)
     };
@@ -139,11 +139,11 @@ class Application extends React.Component {
             new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
               new mapboxgl.Popup({ offset: 25 }) // add popups
               .setHTML(
-                `<div>
-                  <h1>`+feature.properties.title+`</h1>
-                  <p>`+feature.properties.description+`</p>
-                  <small>`+feature.properties.router+`</small>
-                </div>`
+                `<div>`
+                  +(feature.properties.title?(`<h1>`+feature.properties.title+`</h1>`):'')
+                  +(feature.properties.description?(`<p>Đ/c: `+feature.properties.description+`</p>`):'')
+                  +(feature.properties.router?(`<small>Tuyến: `+feature.properties.router+`</small>`):'')+
+                `</div>`
                 )
               ).addTo(this.map)
           };
@@ -166,11 +166,11 @@ class Application extends React.Component {
             new mapboxgl.Marker(feature.color?(feature.color==='blue'?elGo:elBack):el).setLngLat(feature.geometry.coordinates).setPopup(
               new mapboxgl.Popup({ offset: 25 }) // add popups
               .setHTML(
-                `<div>
-                  <h1>`+feature.properties.title+`</h1>
-                  <p>`+feature.properties.description+`</p>
-                  <small>`+feature.properties.router+`</small>
-                </div>`
+                `<div>`
+                  +(feature.properties.title?(`<h1>`+feature.properties.title+`</h1>`):'')
+                  +(feature.properties.description?(`<p>Đ/c: `+feature.properties.description+`</p>`):'')
+                  +(feature.properties.router?(`<small>Tuyến: `+feature.properties.router+`</small>`):'')+
+                `</div>`
                 )
               ).addTo(this.map)
           };

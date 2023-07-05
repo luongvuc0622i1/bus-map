@@ -10,7 +10,7 @@ export let bus_stop_list_bn01 = {
       'properties': {
         'title': 'Công an huyện Gia Bình',
         'description': '142-144 Nguyễn Văn Cừ',
-        'router': 'Tuyến: BN01'
+        'router': 'BN01'
       },
       'color': 'red'
     },
@@ -23,7 +23,7 @@ export let bus_stop_list_bn01 = {
       'properties': {
         'title': 'Siêu thị DABACO Gia Bình',
         'description': 'Vườn hoa đối diện CA huyện Gia Bình',
-        'router': 'Tuyến: BN01'
+        'router': 'BN01'
       },
       'color': 'blue'
     },
@@ -36,7 +36,7 @@ export let bus_stop_list_bn01 = {
       'properties': {
         'title': '',
         'description': '22-24 Nguyễn Văn Cừ',
-        'router': 'Tuyến: BN01'
+        'router': 'BN01'
       },
       'color': 'red'
     },
@@ -49,7 +49,7 @@ export let bus_stop_list_bn01 = {
       'properties': {
         'title': '',
         'description': '2-4 Thiên Thai',
-        'router': 'Tuyến: BN01'
+        'router': 'BN01'
       },
       'color': 'blue'
     },
@@ -62,7 +62,7 @@ export let bus_stop_list_bn01 = {
       'properties': {
         'title': 'Nghĩa trang Liệt sỹ Thị trấn Gia Bình',
         'description': 'Đường Thiên Thai',
-        'router': 'Tuyến: BN01'
+        'router': 'BN01'
       }
     },
     {
@@ -74,7 +74,7 @@ export let bus_stop_list_bn01 = {
       'properties': {
         'title': 'Bến xe Lương Tài',
         'description': 'Đường Lý Thái Tổ',
-        'router': 'Tuyến: BN01'
+        'router': 'BN01'
       }
     }
   ]
