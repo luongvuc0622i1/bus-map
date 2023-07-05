@@ -30,7 +30,7 @@ class Application extends React.Component {
     super(props);
     this.handleSelect = this.handleSelect.bind(this)
     this.state = {
-      lng: 106.0806849,
+      lng: 106.0804849,
       lat: 21.1169071,
       zoom: 11,
       selected_bus: 1,
